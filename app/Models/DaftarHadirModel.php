@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UserModel extends Model
+class DaftarHadirModel extends Model
 {
 	protected $DBGroup              = 'default';
-	protected $table                = 'user';
+	protected $table                = 'daftar_hadir';
 	protected $primaryKey           = 'id';
 	protected $useAutoIncrement     = true;
 	protected $insertID             = 0;
 	protected $returnType           = 'array';
 	protected $useSoftDeletes       = false;
 	protected $protectFields        = true;
-	protected $allowedFields        = ['nama', 'username', 'password', 'role', 'status'];
+	protected $allowedFields        = ["id_peserta"];
 
 	// Dates
 	protected $useTimestamps        = true;
@@ -31,21 +31,12 @@ class UserModel extends Model
 
 	// Callbacks
 	protected $allowCallbacks       = true;
-	protected $beforeInsert         = ['hashPassword'];
+	protected $beforeInsert         = [];
 	protected $afterInsert          = [];
-	protected $beforeUpdate         = ['hashPassword'];
+	protected $beforeUpdate         = [];
 	protected $afterUpdate          = [];
 	protected $beforeFind           = [];
 	protected $afterFind            = [];
 	protected $beforeDelete         = [];
 	protected $afterDelete          = [];
-
-	protected function hashPassword(array $data)
-	{
-		if (!isset($data['data']['password'])) return $data;
-
-		$data['data']['password'] = password_hash($data['data']['password'], PASSWORD_DEFAULT);
-
-		return $data;
-	}
 }

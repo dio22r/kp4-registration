@@ -20,6 +20,7 @@ class AdminController extends BaseController
 	{
 		$arrView = [
 			'page_title' => 'KP4 - Admin',
+			'ctl_id' => 0,
 			'arrJs' => [
 				base_url('/assets/js/admin-controller/peserta/index.js')
 			],

@@ -47,9 +47,18 @@ $routes->post('/admin/peserta', 'AdminController::create');
 $routes->put('/admin/peserta/(:num)', 'AdminController::update/$1');
 $routes->delete('/admin/peserta/(:num)', 'AdminController::delete/$1');
 
-
-$routes->get('/admin/cek-tiket', 'CektiketController::index');
+// admin cek tiket
+$routes->get('/admin/cek-tiket', 'CektiketController::view_index');
+$routes->get('/admin/cek-tiket/data', 'CektiketController::index');
 $routes->post('/admin/cek-tiket/(:segment)', 'CektiketController::validation/$1');
+
+// admin 
+$routes->get('/admin/ganti_password', 'UserController::view_change_password');
+$routes->get('/admin/logout', 'UserController::logout');
+
+$routes->get('/form-login-kp4', 'UserController::view_login');
+$routes->post('/form-login-kp4', 'UserController::api_check_login');
+
 
 /*
  * --------------------------------------------------------------------

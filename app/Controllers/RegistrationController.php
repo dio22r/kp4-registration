@@ -26,7 +26,6 @@ class RegistrationController extends BaseController
 	public function create()
 	{
 		$regHelper = new RegistrationHelper();
-		$this->regModel = new \App\Models\RegistrationModel();
 
 		$arrPost = $this->request->getPost();
 
@@ -54,5 +53,10 @@ class RegistrationController extends BaseController
 	public function show()
 	{
 		// 
+	}
+
+	public function view_complete()
+	{
+		return view("/public_view/vw_registration_complete");
 	}
 }
