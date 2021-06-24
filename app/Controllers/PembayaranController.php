@@ -48,6 +48,11 @@ class PembayaranController extends BaseController
 
 	public function view_form($id = "")
 	{
+		$idPeserta = $this->request->getGet("id");
+		if (!$idPeserta) {
+			$idPeserta = false;
+		}
+
 		$arrView = [
 			"page_title" => "KP4 - Admin Form Pembayaran",
 			"ctl_id" => $this->menuId,
@@ -55,7 +60,8 @@ class PembayaranController extends BaseController
 				base_url("/assets/js/admin-controller/pembayaran/form.js")
 			],
 			"arrJsConfig" => [
-				"api_url" => base_url("/admin/pembayaran")
+				"api_url" => base_url("/admin/pembayaran"),
+				"idPeserta" => $idPeserta
 			]
 		];
 		return view("/admin_view/pembayaran/vw_form_pembayaran", $arrView);
@@ -67,6 +73,16 @@ class PembayaranController extends BaseController
 		$arrDetail = $this->byrPesertaModel->select("t1.*")
 			->join("register as t1", "t1.id = id_register")
 			->where("id_pembayaran", $id)->findAll();
+
+		if (!$arrBayar) {
+			// 
+		}
+
+
+		$arrBayar["str_tipe_pembayaran"] = [
+			1 => "Transfer",
+			2 => "Tunai"
+		][$arrBayar["tipe_pembayaran"]];
 
 		$arrView = [
 			"arrBayar" => $arrBayar,
@@ -82,6 +98,11 @@ class PembayaranController extends BaseController
 		$arrDetail = $this->byrPesertaModel->select("t1.*")
 			->join("register as t1", "t1.id = id_register")
 			->where("id_pembayaran", $id)->findAll();
+
+		$arrBayar["str_tipe_pembayaran"] = [
+			1 => "Transfer",
+			2 => "Tunai"
+		][$arrBayar["tipe_pembayaran"]];
 
 		$arrView = [
 			"page_title" => "KP4 - Pembayaran",

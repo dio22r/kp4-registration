@@ -121,6 +121,7 @@
                   <span v-if="data_peserta.status_lunas == -1" class="badge badge-danger">Dihapus</span>
                   |
                   <a v-on:click="click_bayar(data_peserta.id, $event)" v-if="data_peserta.status_lunas == 0" class="badge badge-primary"><i class="bi bi-cart-check-fill"></i> Bayar!</a>
+                  <a v-on:click="click_detail_bayar(data_peserta.id_pembayaran, $event)" v-else-if="data_peserta.status_lunas == 1" class="badge badge-info"><i class="bi bi-receipt"></i> Detail!</a>
                   <a v-on:click="click_edit(data_peserta.id, $event)" v-else class="badge badge-warning"><i class="bi bi-pencil-square"></i> Edit!</a>
                 </td>
               </tr>

@@ -82,7 +82,9 @@ class AdminController extends BaseController
 
 	public function show($id)
 	{
-		$arrData = $this->regModel->find($id);
+		$arrData = $this->regModel->select("distinct(register.id) as id_reg, register.*, id_pembayaran")
+			->join("pembayaran_peserta as t1", "register.id = t1.id_register", "left")
+			->where("register.id", $id)->first();
 
 		$return = [
 			"status" => false,

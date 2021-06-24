@@ -35,9 +35,7 @@
     <section class="invoice">
       <!-- title row -->
       <div class="container">
-        <div>
-          <a href="<?= base_url("/admin/pembayaran/detail/" . $arrBayar["id_pembayaran"]); ?>"> -- Kembali </a>
-        </div>
+
         <div class="row border-bottom  mt-5">
           <div class="col-sm-2 text-center">
             <img class="mt-2" src="<?php echo base_url("/assets/images/logo-gpdi.png"); ?>" style="height: 70px;" />
@@ -63,7 +61,7 @@
                 </tr>
                 <tr>
                   <th width="30%">Tipe Pembayaran:</th>
-                  <td><?= $arrBayar["tipe_pembayaran"]; ?></td>
+                  <td><?= $arrBayar["str_tipe_pembayaran"]; ?></td>
                 </tr>
                 <tr>
                   <th>Keterangan:</th>

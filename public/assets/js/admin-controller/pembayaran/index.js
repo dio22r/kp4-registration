@@ -28,7 +28,7 @@ var auth_login = new Vue({
       axios.get(url, datasend).then((response) => {
         self.items = response.data.data;
         self.total_page = response.data.totalpage;
-        self.count_start = (that.current_page - 1) * that.perpage + 1;
+        self.count_start = (self.current_page - 1) * self.perpage + 1;
       });
     },
 
@@ -41,6 +41,13 @@ var auth_login = new Vue({
         this.current_page = this.current_page + pagejump;
         this.get_all();
       }
+    },
+
+    click_to_detail: function (id, e) {
+      e.preventDefault();
+
+      let url = "/admin/pembayaran/detail/" + id;
+      window.location = url;
     },
   },
 

@@ -9,8 +9,8 @@ var auth_login = new Vue({
     total_tagihan: 0,
 
     m_peserta: false,
-    m_keterangan: "Test Pembayaran",
-    m_jumlah_bayar: "750000",
+    m_keterangan: "",
+    m_jumlah_bayar: "500000",
   },
 
   methods: {
@@ -79,7 +79,7 @@ var auth_login = new Vue({
           axios.post(url, formData).then((response) => {
             if (response.data.status) {
               alert("data berhasil tersimpan");
-              window.location = "/admin/pembayaran/nota/" + response.data.id;
+              window.location = "/admin/pembayaran/detail/" + response.data.id;
             }
           });
         }
@@ -102,6 +102,16 @@ var auth_login = new Vue({
     let url = "/admin/peserta";
     axios.get(url, datasend).then((response) => {
       self.data_peserta = response.data.data;
+
+      if (base_config.idPeserta !== false) {
+        this.m_peserta = base_config.idPeserta;
+        this.add_peserta();
+        let selData = this.data_peserta.filter(function (el) {
+          return el.id == self.m_peserta;
+        });
+
+        this.m_keterangan = "Lunas a/n " + selData[0]["nama"];
+      }
     });
   },
 });

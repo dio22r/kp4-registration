@@ -30,11 +30,12 @@
           </div>
           <table class="table table-bordered table-condensed table-sm">
             <tr>
-              <th width="10%">No.</th>
+              <th width="7%">No.</th>
               <th width="20%">Tanggal</th>
-              <th width="35%">Ket.</th>
+              <th width="30%">Ket.</th>
               <th width="10%">Peserta</th>
-              <th width="25%">Total Trf.</th>
+              <th width="23%">Total Trf.</th>
+              <th width="5%" class="text-center">#</th>
             </tr>
             <tr v-for="(item, index) in items">
               <td>{{ count_start + index }}</td>
@@ -42,6 +43,11 @@
               <td>{{item.keterangan}}</td>
               <td>{{item.jumlah_peserta}} org</td>
               <td>{{item.jumlah_bayar}}</td>
+              <td class="text-center">
+                <button v-on:click="click_to_detail(item.id_pembayaran, $event)" type="button" class="btn btn-sm btn-info">
+                  <i class="bi bi-file-earmark-medical-fill"></i>
+                </button>
+              </td>
             </tr>
           </table>
 

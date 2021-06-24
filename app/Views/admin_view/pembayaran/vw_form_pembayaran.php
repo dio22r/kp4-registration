@@ -6,7 +6,7 @@
   <section>
     <div class="container">
       <h1 class="display-4 text-center mt-2">Pembayaran</h1>
-      <div class="row">
+      <div class="row justify-content-center">
         <div class="col-md-8">
           <div class="card">
             <div class="card-header">

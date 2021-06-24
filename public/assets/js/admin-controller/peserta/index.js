@@ -98,8 +98,8 @@ var index = new Vue({
     click_edit: function (id, e) {
       let table = document.getElementById("data-view");
       let url = table.getAttribute("data-url");
-      
-      axios.put(url + "/" + id, {'status_lunas': 0}).then((response) => {
+
+      axios.put(url + "/" + id, { status_lunas: 0 }).then((response) => {
         alert(response.data.msg);
         document.getElementById("btn-close").click();
         this.get_all();
@@ -107,17 +107,14 @@ var index = new Vue({
     },
 
     click_bayar: function (id, e) {
-      
-      let table = document.getElementById("data-view");
-      let url = table.getAttribute("data-url");
-      
-      axios.put(url + "/" + id, {'status_lunas': 1}).then((response) => {
-        alert(response.data.msg);
-        document.getElementById("btn-close").click();
-        this.get_all();
-      });
+      let url = "/admin/pembayaran/form?id=" + id;
+      window.location = url;
     },
 
+    click_detail_bayar: function (id, e) {
+      let url = "/admin/pembayaran/detail/" + id;
+      window.location = url;
+    },
   },
 
   mounted: function () {
