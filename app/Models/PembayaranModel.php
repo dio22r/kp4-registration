@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class DaftarHadirModel extends Model
+class PembayaranModel extends Model
 {
-
-	protected $table                = 'daftar_hadir';
-	protected $primaryKey           = 'id';
-	// protected $useAutoIncrement     = true;
-	// protected $insertID             = 0;
+	protected $DBGroup              = 'default';
+	protected $table                = 'pembayaran';
+	protected $primaryKey           = 'id_pembayaran';
+	protected $useAutoIncrement     = true;
+	protected $insertID             = 0;
 	protected $returnType           = 'array';
 	protected $useSoftDeletes       = false;
 	protected $protectFields        = true;
-	protected $allowedFields        = ["id_peserta"];
+	protected $allowedFields        = ["tipe_pembayaran", "tgl_bayar", "jumlah_bayar", "bukti_transaksi", "keterangan", "status"];
 
 	// Dates
 	protected $useTimestamps        = true;

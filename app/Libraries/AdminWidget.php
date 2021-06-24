@@ -50,13 +50,4 @@ class AdminWidget
 
     return view('admin_widget/adminMenuView', $data);
   }
-
-  public function toolbar($data = [])
-  {
-    //
-    $data = [
-      "dataUser" => $this->userModel->find(1)
-    ];
-    return view('admin_widget/adminToolbarView', $data);
-  }
 }

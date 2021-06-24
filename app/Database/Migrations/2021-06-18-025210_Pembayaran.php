@@ -50,11 +50,16 @@ class Pembayaran extends Migration
 				'type' => 'text',
 				'null' => true,
 			],
+			'id_user' => [
+				'type' => 'int',
+			],
 			'status' => [
 				'type' => 'int',
 			],
 		]);
 		$this->forge->addKey('id_pembayaran', true);
+		$this->forge->addKey('id_user');
+
 		$this->forge->createTable('pembayaran');
 	}
 

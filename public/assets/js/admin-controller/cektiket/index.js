@@ -93,5 +93,10 @@ var app = new Vue({
         this.get_all();
       }
     },
+
+    click_camera: function (index) {
+      this.activeCameraId = this.cameras[index].id;
+      this.scanner.start(this.cameras[index]);
+    },
   },
 });

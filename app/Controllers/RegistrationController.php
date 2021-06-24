@@ -41,18 +41,13 @@ class RegistrationController extends BaseController
 				'nama' => $arrPost['form_nama'],
 				'alamat' => $arrPost['form_alamat'],
 				'kontak' => $arrPost['form_kontak'],
-				'total_tagihan' => 750000
+				'total_tagihan' => 500000
 			];
 
 			$arrJson = $regHelper->insert_data($arrSave);
 		}
 
 		return $this->respond($arrJson);
-	}
-
-	public function show()
-	{
-		// 
 	}
 
 	public function view_complete()

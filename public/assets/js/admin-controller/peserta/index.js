@@ -96,13 +96,28 @@ var index = new Vue({
     },
 
     click_edit: function (id, e) {
-      //
-      window.location = "";
+      let table = document.getElementById("data-view");
+      let url = table.getAttribute("data-url");
+      
+      axios.put(url + "/" + id, {'status_lunas': 0}).then((response) => {
+        alert(response.data.msg);
+        document.getElementById("btn-close").click();
+        this.get_all();
+      });
     },
 
     click_bayar: function (id, e) {
-      //
+      
+      let table = document.getElementById("data-view");
+      let url = table.getAttribute("data-url");
+      
+      axios.put(url + "/" + id, {'status_lunas': 1}).then((response) => {
+        alert(response.data.msg);
+        document.getElementById("btn-close").click();
+        this.get_all();
+      });
     },
+
   },
 
   mounted: function () {

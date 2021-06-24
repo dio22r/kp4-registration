@@ -10,7 +10,7 @@ class UserController extends BaseController
 	public function __construct()
 	{
 		$this->userHelper = new \App\Helpers\UserHelper();
-		$this->userModel = model("userModel");
+		$this->userModel = new \App\Models\UserModel();
 		$this->session = \Config\Services::session();
 	}
 

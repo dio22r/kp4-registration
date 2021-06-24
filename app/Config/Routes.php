@@ -43,9 +43,24 @@ $routes->get('/admin/view_index', 'AdminController::view_index');
 // admin peserta API
 $routes->get('/admin/peserta', 'AdminController::index');
 $routes->get('/admin/peserta/(:num)', 'AdminController::show/$1');
-$routes->post('/admin/peserta', 'AdminController::create');
+// $routes->post('/admin/peserta', 'AdminController::create');
 $routes->put('/admin/peserta/(:num)', 'AdminController::update/$1');
 $routes->delete('/admin/peserta/(:num)', 'AdminController::delete/$1');
+
+// admin pembayaran
+$routes->get('/admin/pembayaran', 'PembayaranController::view_index');
+$routes->get('/admin/pembayaran/form', 'PembayaranController::view_form');
+$routes->get('/admin/pembayaran/form/(:num)', 'PembayaranController::view_form/$1');
+$routes->get('/admin/pembayaran/nota/(:num)', 'PembayaranController::view_nota/$1');
+$routes->get('/admin/pembayaran/detail/(:num)', 'PembayaranController::view_detail/$1');
+
+// admin pembayaran API
+$routes->get('/admin/pembayaran/all', 'PembayaranController::index');
+$routes->get('/admin/pembayaran/(:num)', 'PembayaranController::show/$1');
+$routes->post('/admin/pembayaran', 'PembayaranController::create');
+$routes->post('/admin/pembayaran/(:num)', 'PembayaranController::update/$1');
+$routes->delete('/admin/pembayaran', 'PembayaranController::remove');
+
 
 // admin cek tiket
 $routes->get('/admin/cek-tiket', 'CektiketController::view_index');

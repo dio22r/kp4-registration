@@ -9,11 +9,26 @@ class AdminController extends BaseController
 {
 	use ResponseTrait;
 
+	protected $roleAllowed = [1, 2];
+
 	public function __construct()
 	{
+
 		$this->adminPesertaHelper = new \App\Helpers\AdminPesertaHelper();
+		$this->userHelper = new \App\Helpers\UserHelper();
+
 		$this->regModel = new \App\Models\RegistrationModel();
+
 		$this->apiUrl = base_url("/admin/peserta/");
+
+		$arrUser = $this->userHelper->get_login_info();
+		$roleId = $arrUser["role"];
+
+		if (!in_array($roleId, $this->roleAllowed)) {
+			$redir = base_url("/admin/cek-tiket");
+			header("Location: $redir");
+			exit;
+		}
 	}
 
 	public function view_index()
@@ -97,7 +112,26 @@ class AdminController extends BaseController
 
 	public function update($id)
 	{
-		// 
+		$arrJSON = $this->request->getJSON();
+
+		$status = false;
+		$msg = "Maaf Terjadi Kesalahan, silahkan coba lagi";
+		try {
+			$status = $this->regModel->update($id, $arrJSON);
+			if ($status) {
+				$msg = "Data telah terupdate";
+			}
+		} catch (\Exception $e) {
+			$arrJSON = $e;
+		}
+
+		$return = [
+			"status" => $status,
+			"msg" => $msg,
+			"arrPost" => $arrJSON
+		];
+
+		return $this->respond($return, 200);
 	}
 
 	public function delete($id)

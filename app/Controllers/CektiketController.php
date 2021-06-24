@@ -9,6 +9,9 @@ class CektiketController extends BaseController
 {
 	use ResponseTrait;
 
+	protected $roleAllowed = [1, 2, 3];
+
+
 	public function view_index()
 	{
 		$arrView = [
@@ -30,35 +33,33 @@ class CektiketController extends BaseController
 
 		$json = base64_decode($base64);
 		$arrData = (array) json_decode($json);
-		$arrData["status_lunas"] = 1;
 		$arrData = $this->regModel->where($arrData)->first();
 
 		if ($arrData) {
+			$arrJson = [
+				"status" => false,
+				"msg" => "Data sudah ada",
+				"arrData" => [
+					"nama" => $arrData["nama"],
+					"alamat" => $arrData["alamat"],
+					"status_lunas" => $arrData["status_lunas"]
+				]
+			];
+
 			$arrSave = [
 				"id_peserta" => $arrData["id"]
 			];
 
-			try {
-				$this->daftarHadirModel->save($arrSave);
-				$arrJson = [
-					"status" => true,
-					"msg" => "Selamat Datang",
-					"arrData" => [
-						"nama" => $arrData["nama"],
-						"alamat" => $arrData["alamat"],
-						"status_lunas" => $arrData["status_lunas"]
-					]
-				];
-			} catch (\Exception $e) {
-				$arrJson = [
-					"status" => false,
-					"msg" => "Data sudah ada",
-					"arrData" => [
-						"nama" => $arrData["nama"],
-						"alamat" => $arrData["alamat"],
-						"status_lunas" => $arrData["status_lunas"]
-					]
-				];
+			if ($arrData["status_lunas"] == 1) {
+				try {
+					$this->daftarHadirModel->save($arrSave);
+					$arrJson["status"] = true;
+					$arrJson["msg"] = "Selamat Datang";
+				} catch (\Exception $e) {
+					$arrJson["msg"] = "Data sudah ada";
+				}
+			} else {
+				$arrJson["msg"] = "Harap hubungi panitia untuk validasi data anda";
 			}
 		} else {
 			$arrJson = [

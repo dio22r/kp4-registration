@@ -36,6 +36,12 @@
                   {{detail.msg}}
                 </p>
               </div>
+
+              <ul>
+                <li v-for="(itemCam, index) in cameras">
+                  <button v-on:click="click_camera(index)" type="button" class="btn btn-light btn-sm">{{itemCam.name}}</button>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
