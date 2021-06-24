@@ -175,7 +175,7 @@ class PembayaranController extends BaseController
 			$name = $file->getRandomName();
 
 			// Move the file to it's new home
-			$result = $file->move(APPPATH . '../public/assets/images/bukti', $name);
+			$result = $file->move(PATH_BUKTI, $name);
 			if ($result) {
 				// insert pembayaran
 
