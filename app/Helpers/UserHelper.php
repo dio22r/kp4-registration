@@ -65,6 +65,38 @@ class UserHelper
     return $arrJson;
   }
 
+  public function change_password($old, $new, $retype)
+  {
+    $id = $this->session->get('id');
+    $arrData = $this->userModel
+      ->where("id", $id)
+      ->first();
+
+    $status = false;
+    $arrErr = [];
+    // password olld
+    if (!password_verify($old, $arrData["password"])) {
+      $arrErr["password_old"] = "Password Lama Tidak Sesuai";
+    }
+
+    if ($new != $retype) {
+      $arrErr["password"] = "Password Baru dan Ulangi Password harus sama dan harus diisi";
+    }
+
+    if (!$arrErr) {
+      $arrData["password"] = $new;
+      $status = $this->userModel->update($id, $arrData);
+      if (!$status) {
+        $arrErr = $this->userModel->errors();
+      }
+    }
+
+    return [
+      "status" => $status,
+      "arrErr" => $arrErr
+    ];
+  }
+
   public function set_login_info($arrUser)
   {
 

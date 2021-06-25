@@ -69,6 +69,7 @@ $routes->post('/admin/cek-tiket/(:segment)', 'CektiketController::validation/$1'
 
 // admin 
 $routes->get('/admin/ganti_password', 'UserController::view_change_password');
+$routes->post('/admin/ganti_password', 'UserController::api_change_password');
 $routes->get('/admin/logout', 'UserController::logout');
 
 $routes->get('/form-login-kp4', 'UserController::view_login');

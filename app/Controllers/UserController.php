@@ -3,14 +3,17 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\UserModel;
+use CodeIgniter\API\ResponseTrait;
 
 class UserController extends BaseController
 {
+	use ResponseTrait;
+
 	public function __construct()
 	{
 		$this->userHelper = new \App\Helpers\UserHelper();
-		$this->userModel = new \App\Models\UserModel();
+		$this->userModel = model('App\Models\UserModel');
+
 		$this->session = \Config\Services::session();
 	}
 
@@ -21,36 +24,76 @@ class UserController extends BaseController
 
 	public function view_login()
 	{
+		if ($this->userHelper->check_login() !== false) {
+			$redir = base_url("/admin");
+			header("Location: $redir");
+			exit;
+		}
+
 		return view("/admin_view/login_view");
 	}
 
 	public function api_check_login()
 	{
-		$arrPost = $this->request->getPost();
+		$status = false;
+		$msg = "Harap centang kode keamanan";
 
-		$arrData = $this->userModel
-			->where(['username' => $arrPost["username"]])
-			->first();
+		$check = $this->userHelper->verify_captcha($this->request);
+		if ($check["success"]) {
+			$username = $this->request->getPost("username");
+			$password = $this->request->getPost("password");
 
-		if (!$arrData) {
-			return redirect('form-login-kp4');
+			$arrData = $this->userModel
+				->where(['username' => $username])
+				->first();
+
+			$msg = "Username Tidak Ditemukan";
+			if ($arrData) {
+				$msg = "Password Salah";
+				if (password_verify($password, $arrData["password"])) {
+					$this->userHelper->set_login_info($arrData);
+					$status = true;
+					$msg = "Login Berhasil";
+				}
+			}
 		}
 
-		if (password_verify($arrPost["password"], $arrData["password"])) {
-			$this->userHelper->set_login_info($arrData);
-			return redirect('admin');
-		}
-		return redirect('form-login-kp4');
+		$arrRes = [
+			"status" => $status,
+			"msg" => $msg
+		];
+
+		return $this->respond($arrRes, 200);
 	}
 
 	public function view_change_password()
 	{
-		// 
+		$arrView = [
+			"ctl_id" => 0,
+			"page_title" => "KP4 - Ganti Password",
+
+			"arrJs" => [
+				base_url("/assets/js/admin-controller/ganti_password.js")
+			]
+		];
+
+		return view("/admin_view/ganti_password_view", $arrView);
 	}
 
 	public function api_change_password()
 	{
-		// 
+		$arrDet = $this->userHelper->change_password(
+			$this->request->getPost("password_old"),
+			$this->request->getPost("password"),
+			$this->request->getPost("re_password")
+		);
+
+		$arrRes = [
+			"status" => $arrDet["status"],
+			"arrErr" => $arrDet["arrErr"]
+		];
+
+		return $this->respond($arrRes, 200);
 	}
 
 	public function logout()

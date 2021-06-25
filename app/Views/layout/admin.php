@@ -33,6 +33,12 @@
   </section>
 
   <?= $this->renderSection('content') ?>
+
+  <div class="container mt-3 mb-3">
+    <div class="footer text-center">
+      <p class="font-weight-light">Copyright &copy; 2021 &mdash; Panitia 100 Tahun GPdI - KP4</p>
+    </div>
+  </div>
 </body>
 
 </html>

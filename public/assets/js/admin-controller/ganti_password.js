@@ -1,0 +1,28 @@
+var ganti_password = new Vue({
+  el: "#data-vue",
+
+  data: {
+    alert_show: false,
+    alert_msg: [],
+  },
+
+  methods: {
+    submit: function (e) {
+      e.preventDefault();
+      let self = this;
+
+      let form = document.getElementById("form");
+      let formData = new FormData(form);
+
+      let url = "/admin/ganti_password";
+      axios.post(url, formData).then((response) => {
+        self.alert_show = !response.data.status;
+        self.alert_msg = response.data.arrErr;
+      });
+    },
+  },
+
+  mounted: function () {
+    //
+  },
+});
