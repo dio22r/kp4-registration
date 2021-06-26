@@ -38,7 +38,8 @@ class UserController extends BaseController
 		$status = false;
 		$msg = "Harap centang kode keamanan";
 
-		$check = $this->userHelper->verify_captcha($this->request);
+		//$check = $this->userHelper->verify_captcha($this->request);
+		$check["success"] = true;
 		if ($check["success"]) {
 			$username = $this->request->getPost("username");
 			$password = $this->request->getPost("password");

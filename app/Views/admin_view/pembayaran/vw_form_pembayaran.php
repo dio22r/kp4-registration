@@ -44,7 +44,7 @@
                 <div class="form-group row">
                   <label for="inputPassword3" class="col-sm-3 col-form-label">Bukti Pembayaran</label>
                   <div class="col-sm-6">
-                    <input type="file" class="form-control-file" name="file_bukti_pembayaran">
+                    <input id="form-file" type="file" class="form-control-file" name="file_bukti_pembayaran">
                   </div>
                 </div>
 
@@ -95,6 +95,21 @@
                   </div>
                 </div>
               </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-header">
+              Preview Bukti Bayar
+            </div>
+            <div class="card-body">
+              <div v-show="is_file">
+                <img id="prev-bukti" src="#" width="100%" />
+              </div>
+              <div v-show="!is_file" class="alert alert-warning">
+                Belum ada bukti pembayaran!
+              </div>
             </div>
           </div>
         </div>

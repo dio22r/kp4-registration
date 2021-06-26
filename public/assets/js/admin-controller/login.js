@@ -18,9 +18,8 @@ var login = new Vue({
       axios.post(url, formData).then((response) => {
         self.alert_show = !response.data.status;
         self.msg = response.data.msg;
-        if (!response.data.status) {
-          location.reload();
-        }
+
+        location.reload();
       });
     },
   },

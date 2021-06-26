@@ -49,6 +49,11 @@ var auth_login = new Vue({
       let url = "/admin/pembayaran/detail/" + id;
       window.location = url;
     },
+
+    on_search: function (e) {
+      e.preventDefault();
+      this.get_all();
+    },
   },
 
   mounted: function () {

@@ -11,9 +11,20 @@ var auth_login = new Vue({
     m_peserta: false,
     m_keterangan: "",
     m_jumlah_bayar: "500000",
+
+    is_file: false,
   },
 
   methods: {
+    set_keterangan: function () {
+      let all_nama = [];
+      this.table_peserta.forEach((element) => {
+        all_nama.push(element.nama);
+      });
+
+      this.m_keterangan = "Lunas a/n " + all_nama.join(", ");
+    },
+
     add_peserta: function () {
       if (this.m_peserta) {
         let self = this;
@@ -24,6 +35,7 @@ var auth_login = new Vue({
         if (selData) {
           if (!this.table_peserta.includes(selData[0])) {
             this.table_peserta.push(selData[0]);
+            this.set_keterangan();
           } else {
             alert("data sudah ada");
           }
@@ -36,6 +48,7 @@ var auth_login = new Vue({
       this.table_peserta = this.table_peserta.filter(function (el) {
         return el.id != id;
       });
+      this.set_keterangan();
       this.sum_tagihan();
     },
 
@@ -85,10 +98,25 @@ var auth_login = new Vue({
         }
       }
     },
+
+    set_bukti_bayar: function () {
+      let self = this;
+      let imgInp = document.getElementById("form-file");
+      let prevBukti = document.getElementById("prev-bukti");
+
+      imgInp.onchange = (evt) => {
+        const [file] = imgInp.files;
+        if (file) {
+          self.is_file = true;
+          prevBukti.src = URL.createObjectURL(file);
+        }
+      };
+    },
   },
 
   mounted: function () {
     let self = this;
+    this.set_bukti_bayar();
 
     let datasend = {
       params: {

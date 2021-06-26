@@ -18,6 +18,11 @@ var ganti_password = new Vue({
       axios.post(url, formData).then((response) => {
         self.alert_show = !response.data.status;
         self.alert_msg = response.data.arrErr;
+
+        if (response.data.status) {
+          alert("Perubahan Password Berhasil!");
+          window.location = "/admin";
+        }
       });
     },
   },

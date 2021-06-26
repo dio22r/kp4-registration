@@ -9,6 +9,7 @@ class UserHelper
   public function __construct()
   {
     $this->session = \Config\Services::session();
+    $this->userModel =  model("\App\Models\UserModel");
   }
 
   public function verify_captcha($request)
@@ -36,8 +37,6 @@ class UserHelper
 
   public function insert_data($arrData)
   {
-    $this->userModel = new \App\Models\UserModel();
-
     try {
       // set key;
 
