@@ -1,8 +1,6 @@
-# CodeIgniter 4 Application Starter
+# KP4 Panitia 1 abad
 
-## What is CodeIgniter?
-
-PANITIASATUABADGPDIKP4.COM
+## Aplikasi Fullstack
 
 CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
 More information can be found at the [official site](http://codeigniter.com).
