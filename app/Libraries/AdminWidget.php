@@ -31,6 +31,10 @@ class AdminWidget
       [
         "menu" => "Check-In",
         "href" => base_url("/admin/cek-tiket")
+      ],
+      [
+        "menu" => "Amplop",
+        "href" => base_url("/admin/amplop")
       ]
     ];
 

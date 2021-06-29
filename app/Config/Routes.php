@@ -34,6 +34,11 @@ $routes->setAutoRoute(false);
 $routes->get('/', 'RegistrationController::index');
 
 $routes->post('/registration', 'RegistrationController::create');
+$routes->get('/amplop/(:segment)', "AmplopPublicController::view_show/$1");
+
+
+$routes->get('/form-login-kp4', 'UserController::view_login');
+$routes->post('/form-login-kp4', 'UserController::api_check_login');
 
 // admin peserta view
 $routes->get('/admin', 'AdminController::view_index');
@@ -67,13 +72,29 @@ $routes->get('/admin/cek-tiket', 'CektiketController::view_index');
 $routes->get('/admin/cek-tiket/data', 'CektiketController::index');
 $routes->post('/admin/cek-tiket/(:segment)', 'CektiketController::validation/$1');
 
+
+// admin amplop
+$routes->get('/admin/amplop', 'AmplopController::view_index');
+$routes->get('/admin/amplop/print-qrcode', 'AmplopController::view_genqrcode');
+$routes->get('/admin/amplop/keluar', 'AmplopController::view_keluar');
+$routes->get('/admin/amplop/masuk', 'AmplopController::view_masuk');
+
+// admin amplop api
+$routes->get('/admin/amplop/all', 'AmplopController::index');
+$routes->get('/admin/amplop/cek/(:segment)', 'AmplopController::api_cek/$1');
+$routes->post('/admin/amplop/keluar', 'AmplopController::api_keluar');
+$routes->post('/admin/amplop/masuk', 'AmplopController::api_masuk');
+
+
+
 // admin 
 $routes->get('/admin/ganti_password', 'UserController::view_change_password');
 $routes->post('/admin/ganti_password', 'UserController::api_change_password');
 $routes->get('/admin/logout', 'UserController::logout');
 
-$routes->get('/form-login-kp4', 'UserController::view_login');
-$routes->post('/form-login-kp4', 'UserController::api_check_login');
+
+
+
 
 
 /*
