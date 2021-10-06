@@ -12,7 +12,7 @@
 
   <?php foreach ($arrCode as $key => $val) { ?>
 
-    <img width="200px" src="<?= $qrcode->render($val) ?>" alt="QR Code" />
+    <img width="120px" src="<?= $qrcode->render($val) ?>" alt="QR Code" />
 
   <?php } ?>
 </body>

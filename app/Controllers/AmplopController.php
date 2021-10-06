@@ -45,7 +45,7 @@ class AmplopController extends BaseController
 		$qrcode = new QRCode($options);
 
 		$arrCode = [];
-		for ($i = 0; $i < 15; $i++) {
+		for ($i = 0; $i < 54; $i++) {
 			$arrData = [
 				"host" => "kp4",
 				"key" => uniqid(rand())
@@ -68,6 +68,56 @@ class AmplopController extends BaseController
 		];
 
 		return view("/admin_view/amplop/vw_genqrcode", $arrView);
+	}
+
+	public function print_amplop()
+	{
+		$prefix = $this->request->getGet("prefix");
+
+
+		if (!$prefix) {
+			return;
+		}
+
+		$options = new QROptions([
+			'version'    => 5,
+			'outputType' => QRCode::OUTPUT_IMAGE_PNG,
+		]);
+
+		// invoke a fresh QRCode instance
+		$qrcode = new QRCode($options);
+
+		$arrCode = $arrInsert = [];
+		for ($i = 0; $i < 10; $i++) {
+			$arrData = [
+				"host" => "kp4",
+				"key" => uniqid(rand())
+			];
+
+			$amplopUrl = "https://panitiasatuabadgpdikp4.com/amplop/";
+			$arrCode[] = $amplopUrl . base64_encode(json_encode($arrData));
+
+			$idAmplop = $prefix . "-" . str_pad($i + 1, 2, "0", STR_PAD_LEFT);
+			$arrInsert[] = [
+				"nama" => $idAmplop,
+				"keterangan" => "Amplop ID: $idAmplop",
+				"amplop_key" => $arrData["key"],
+				"status" => 1
+			];
+		}
+		// $status = true;
+		$status = $this->amplopModel->insertBatch($arrInsert);
+		if (!$status) {
+			return;
+		}
+
+		$arrView = [
+			"qrcode" => $qrcode,
+			"arrCode" => $arrCode,
+			"arrInsert" => $arrInsert
+		];
+
+		return view("/admin_view/amplop/vw_print_amplop", $arrView);
 	}
 
 	public function view_keluar()
@@ -97,7 +147,6 @@ class AmplopController extends BaseController
 
 		return view("/admin_view/amplop/vw_masuk", $arrView);
 	}
-
 
 	// API
 	public function index()

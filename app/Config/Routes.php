@@ -76,6 +76,7 @@ $routes->post('/admin/cek-tiket/(:segment)', 'CektiketController::validation/$1'
 // admin amplop
 $routes->get('/admin/amplop', 'AmplopController::view_index');
 $routes->get('/admin/amplop/print-qrcode', 'AmplopController::view_genqrcode');
+$routes->get('/admin/amplop/print-amplop', 'AmplopController::print_amplop');
 $routes->get('/admin/amplop/keluar', 'AmplopController::view_keluar');
 $routes->get('/admin/amplop/masuk', 'AmplopController::view_masuk');
 

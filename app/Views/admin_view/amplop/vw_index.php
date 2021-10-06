@@ -23,7 +23,7 @@
             <div class="card-body">
               <div class="row  mb-3">
                 <div class="col-md-6">
-                  <a target="_blank" class="btn btn-sm btn-outline-secondary" href="<?= base_url("/admin/amplop/print-qrcode") ?>">
+                  <a target="_blank" class="btn btn-sm btn-outline-secondary" href="<?= base_url("/admin/amplop/print-amplop") ?>">
                     <i class="bi bi-printer"></i> Print QRCode
                   </a>
 

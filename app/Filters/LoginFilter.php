@@ -28,7 +28,7 @@ class LoginFilter implements FilterInterface
 		// 
 		$userHelper = new \App\Helpers\UserHelper();
 		if ($userHelper->check_login() === false) {
-			return redirect('/');
+			//return redirect('/');
 		}
 	}
 
