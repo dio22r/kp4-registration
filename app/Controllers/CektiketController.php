@@ -11,31 +11,57 @@ class CektiketController extends BaseController
 
 	protected $roleAllowed = [1, 2, 3];
 
+	public function __construct()
+	{
+		$this->kegiatanModel = model("KegiatanModel");
+	}
 
 	public function view_index()
 	{
+
+
+		$dataKegiatan = $this->kegiatanModel->where("status", 1)->first();
+
 		$arrView = [
 			"page_title" => "KP4 | Cek Tiket",
-			"ctl_id" => 2,
+			"ctl_id" => 3,
 			"arrJs" => [
-				"https://rawgit.com/schmich/instascan-builds/master/instascan.min.js",
+				// "https://rawgit.com/schmich/instascan-builds/master/instascan.min.js",
+				base_url("/assets/js/instascan.min.js"),
 				base_url("/assets/js/admin-controller/cektiket/index.js"),
-			]
+			],
+			"dataKegiatan" => $dataKegiatan
 		];
 
 		return view("/admin_view/cektiket/index_view", $arrView);
 	}
 
-	public function validation($base64)
+	public function validation()
 	{
 		$this->regModel = new \App\Models\RegistrationModel();
 		$this->daftarHadirModel = new \App\Models\DaftarHadirModel();
 
-		$json = base64_decode($base64);
-		$arrData = (array) json_decode($json);
-		$arrData = $this->regModel->where($arrData)->first();
+		$arrPost = $this->request->getPost();
 
-		if ($arrData) {
+		$arrType = [
+			"id-pan" => 1,
+			"id-t" => 2,
+			"id-p" => 3,
+		];
+
+		if (!isset($arrType[$arrPost["type"]])) {
+			return $this->respond(["msg" => "Error!"], 500);
+		}
+
+		$arrData = [
+			"key" => $arrPost["key"],
+			"type" => $arrType[$arrPost["type"]]
+		];
+
+		$arrData = $this->regModel->where($arrData)->first();
+		$dataKegiatan = $this->kegiatanModel->where("status", 1)->first();
+
+		if ($arrData && $dataKegiatan) {
 			$arrJson = [
 				"status" => false,
 				"msg" => "Data sudah ada",
@@ -47,7 +73,11 @@ class CektiketController extends BaseController
 			];
 
 			$arrSave = [
-				"id_peserta" => $arrData["id"]
+				"id_peserta" => $arrData["id"],
+				"type_peserta" => $arrData["type"],
+				"id_kegiatan" => $dataKegiatan["id"],
+				"date_time" => date("Y-m-d H:i:s"),
+				"status_date_time" => 1 //$this->request->getPost("status")
 			];
 
 			if ($arrData["status_lunas"] == 1) {
@@ -56,7 +86,7 @@ class CektiketController extends BaseController
 					$arrJson["status"] = true;
 					$arrJson["msg"] = "Selamat Datang";
 				} catch (\Exception $e) {
-					$arrJson["msg"] = "Data sudah ada";
+					$arrJson["msg"] = "Data sudah ada " . $e;
 				}
 			} else {
 				$arrJson["msg"] = "Harap hubungi panitia untuk validasi data anda";
@@ -64,7 +94,7 @@ class CektiketController extends BaseController
 		} else {
 			$arrJson = [
 				"status" => false,
-				"msg" => "Data tidak ditemukan",
+				"msg" => "Data tidak ditemukan atau kegiatan masih belum aktif",
 				"arrData" => false
 			];
 		}
@@ -84,7 +114,10 @@ class CektiketController extends BaseController
 			$page = 1;
 		}
 
-		$arrWhere = [];
+
+		$dataKegiatan = $this->kegiatanModel->where("status", 1)->first();
+
+		$arrWhere = ["id_kegiatan" => $dataKegiatan["id"]];
 
 		$search = (string) $this->request->getGet("search");
 		$arrData = $this->daftarHadirHelper->retrieve_json_table($page, $perpage, $search, "nama", $arrWhere);

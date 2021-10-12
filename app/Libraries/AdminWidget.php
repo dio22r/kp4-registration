@@ -25,6 +25,10 @@ class AdminWidget
         "href" => base_url("/admin")
       ],
       [
+        "menu" => "Panitia",
+        "href" => base_url("/admin/panitia")
+      ],
+      [
         "menu" => "Pembayaran",
         "href" => base_url("/admin/pembayaran")
       ],

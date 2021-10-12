@@ -11,7 +11,7 @@ class PembayaranController extends BaseController
 
 
 	protected $roleAllowed = [1, 2];
-	protected $menuId = 1;
+	protected $menuId = 2;
 
 	public function __construct()
 	{

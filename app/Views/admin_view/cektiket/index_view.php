@@ -14,6 +14,18 @@
 
     <div class="container">
       <h1 class="display-4 text-center mt-2">Check Tiket</h1>
+
+      <nav class="navbar navbar-expand navbar-light bg-light mb-3">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="<?= base_url("admin/kegiatan"); ?>">Kegiatan <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="<?= base_url("admin/cek-tiket"); ?>">Absensi</a>
+          </li>
+        </ul>
+      </nav>
+
       <div class="row">
         <div class="col-md-4">
           <div class="card">
@@ -53,6 +65,16 @@
             </div>
             <div class="card-body">
 
+              <?php if ($dataKegiatan) { ?>
+                <div class="alert alert-success">
+                  Daftar Hadir Untuk Kegiatan : <strong style="text-decoration:underline"> <?= $dataKegiatan["nama_kegiatan"] ?> </strong>
+                </div>
+              <?php } else { ?>
+                <div class="alert alert-danger">
+                  <strong>Peringatan!</strong> Hubungi Administrator untuk mengaktifkan kegiatan terlebih dahulu
+                </div>
+              <?php } ?>
+
               <table class="table table-sm table-bordered">
                 <tr>
                   <th class="text-center" width="10%">No.</th>
@@ -67,9 +89,16 @@
                   </td>
                   <td class="text-center">
 
+
+                    <span v-if="item.type == 1" class="badge badge-warning">Panitia</span>
+                    <span v-if="item.type == 2" class="badge badge-danger">Tamu</span>
+                    <span v-if="item.type == 3" class="badge badge-primary">Peserta</span>
+                    <!-- 
                     <span v-if="item.status_lunas == 1" class="badge badge-success">Lunas</span>
                     <span v-if="item.status_lunas == 0" class="badge badge-warning">Belum Lunas</span>
-                    <span v-if="item.status_lunas == -1" class="badge badge-danger">Dihapus</span>
+                    <span v-if="item.status_lunas == -1" class="badge badge-danger">Dihapus</span> -->
+
+
 
                   </td>
                 </tr>

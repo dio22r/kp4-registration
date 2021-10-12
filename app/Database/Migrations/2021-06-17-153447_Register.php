@@ -22,6 +22,10 @@ class Register extends Migration
 				'type' => 'timestamp',
 				'null' => true
 			],
+			'deleted_at' => [
+				'type' => 'timestamp',
+				'null' => true
+			],
 			'nama' => [
 				'type' => 'varchar',
 				'constraint' => 150,
@@ -43,13 +47,16 @@ class Register extends Migration
 			],
 			'key' => [
 				'type' => 'text',
-				'constraint' => 255,
 			],
 			'qrcode' => [ // field filepath images
 				'type' => 'varchar',
 				'constraint' => 255,
 			],
 			'status_lunas' => [
+				'type' => 'int',
+				'constraint' => 5,
+			],
+			'type' => [ // panitia, tamu, peserta default peserta
 				'type' => 'int',
 				'constraint' => 5,
 			],

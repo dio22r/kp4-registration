@@ -53,7 +53,16 @@ var app = new Vue({
     getSubmitData: function (content) {
       let self = this;
 
-      axios.post("/admin/cek-tiket/" + content).then((response) => {
+      let arrData = content.split("/");
+      let key = arrData[arrData.length - 1];
+      let type = arrData[arrData.length - 2];
+
+      let formData = new FormData();
+
+      formData.append("key", key);
+      formData.append("type", type);
+
+      axios.post("/admin/cek-tiket", formData).then((response) => {
         self.detail = response.data;
         console.log(self.detail);
         if (response.data.status) {

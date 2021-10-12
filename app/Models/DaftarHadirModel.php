@@ -9,12 +9,12 @@ class DaftarHadirModel extends Model
 
 	protected $table                = 'daftar_hadir';
 	protected $primaryKey           = 'id';
-	// protected $useAutoIncrement     = true;
+	protected $useAutoIncrement     = true;
 	// protected $insertID             = 0;
 	protected $returnType           = 'array';
-	protected $useSoftDeletes       = false;
+	protected $useSoftDeletes       = true;
 	protected $protectFields        = true;
-	protected $allowedFields        = ["id_peserta"];
+	protected $allowedFields        = ["id_kegiatan", "id_peserta", "type_peserta", "date_time", "status_date_time"];
 
 	// Dates
 	protected $useTimestamps        = true;

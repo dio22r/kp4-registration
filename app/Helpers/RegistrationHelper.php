@@ -34,7 +34,7 @@ class RegistrationHelper
 
 		try {
 			// set key;
-			$arrSave['key'] = md5("kp4-" . date("YmdHis"));
+			$arrSave['key'] = md5("kp4-" . date("YmdHis") . rand());
 
 			$status = $this->regModel->save($arrSave);
 			$regId = $this->regModel->getInsertID();

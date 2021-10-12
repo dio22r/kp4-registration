@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class DaftarHadir extends Migration
+class Kegiatan extends Migration
 {
 	public function up()
 	{
@@ -26,29 +26,41 @@ class DaftarHadir extends Migration
 				'type' => 'timestamp',
 				'null' => true
 			],
-			'id_kegiatan' => [
-				'type' => 'int',
+			'nama_kegiatan' => [
+				'type' => 'varchar',
+				'constraint' => 150
 			],
-			'id_peserta' => [
-				'type' => 'int',
+			'date_start' => [
+				'type' => 'date',
 			],
-			'type_peserta' => [
-				'type' => 'int',
+			'time_start' => [
+				'type' => 'time',
 			],
-			'date_time' => [
-				'type' => 'timestamp',
+			'date_end' => [
+				'type' => 'date',
 			],
-			'status_date_time' => [
+			'time_end' => [
+				'type' => 'time',
+			],
+			'tempat' => [
+				'type' => 'varchar',
+				'constraint' => 150
+			],
+			'keterangan' => [
+				'type' => 'text',
+			],
+			'status' => [ // active non active
 				'type' => 'int',
+				'constraint' => 5,
 			]
 		]);
 		$this->forge->addKey('id', true);
 
-		$this->forge->createTable('daftar_hadir');
+		$this->forge->createTable('kegiatan');
 	}
 
 	public function down()
 	{
-		$this->forge->dropTable('daftar_hadir');
+		$this->forge->dropTable('kegiatan');
 	}
 }

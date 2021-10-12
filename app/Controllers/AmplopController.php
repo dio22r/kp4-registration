@@ -25,7 +25,7 @@ class AmplopController extends BaseController
 	{
 		$arrView = [
 			"page_title" => "KP4 - Amplop Masuk",
-			"ctl_id" => 3,
+			"ctl_id" => 4,
 			"arrJs" => [
 				base_url("/assets/js/admin-controller/amplop/index.js")
 			]
@@ -124,7 +124,7 @@ class AmplopController extends BaseController
 	{
 		$arrView = [
 			"page_title" => "KP4 - Amplop Keluar",
-			"ctl_id" => 3,
+			"ctl_id" => 4,
 			"arrJs" => [
 				"https://rawgit.com/schmich/instascan-builds/master/instascan.min.js",
 				base_url("/assets/js/admin-controller/amplop/keluar.js")
@@ -138,7 +138,7 @@ class AmplopController extends BaseController
 	{
 		$arrView = [
 			"page_title" => "KP4 - Amplop Masuk",
-			"ctl_id" => 3,
+			"ctl_id" => 4,
 			"arrJs" => [
 				"https://rawgit.com/schmich/instascan-builds/master/instascan.min.js",
 				base_url("/assets/js/admin-controller/amplop/masuk.js")

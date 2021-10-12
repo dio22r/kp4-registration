@@ -64,12 +64,22 @@ class AdminController extends BaseController
 			$page = 1;
 		}
 
-		$arrWhere = [
-			'status_lunas' => $statusLunas
-		];
+		if ($statusLunas == -1) {
+			$arrWhere = [
+				'type' => 3
+			];
+			$deletedOnly = true;
+		} else {
+			$arrWhere = [
+				'status_lunas' => $statusLunas,
+				'type' => 3
+			];
+			$deletedOnly = false;
+		}
+
 
 		$search = (string) $this->request->getGet("search");
-		$arrData = $this->adminPesertaHelper->retrieve_json_table($page, $perpage, $search, "nama", $arrWhere);
+		$arrData = $this->adminPesertaHelper->retrieve_json_table($page, $perpage, $search, "nama", $arrWhere, $deletedOnly);
 
 		$arrRespond = [
 			"data" => $arrData["data"],
@@ -95,7 +105,11 @@ class AdminController extends BaseController
 
 			$arrData["qrcode_url"] = false;
 			if ($arrData["status_lunas"] == 1) {
-				$arrData["qrcode_url"] = $this->adminPesertaHelper->qrcode($arrData);
+				// $arrData["qrcode_url"] = ""; // $this->adminPesertaHelper->qrcode($arrData);
+				$arrQrcode = $this->adminPesertaHelper->qrcode_img(3, $arrData["key"]);
+
+				$arrData["qrcode_url"] = $arrQrcode["img"];
+				$arrData["idcard_url"] = $arrQrcode["url"];
 			}
 
 			$return = [
@@ -138,11 +152,7 @@ class AdminController extends BaseController
 
 	public function delete($id)
 	{
-		$arrDelete = [
-			'id' => $id,
-			'status_lunas' => -1
-		];
-		$arrData = $this->regModel->save($arrDelete);
+		$arrData = $this->regModel->delete($id);
 
 		return $this->respond($arrData, 200);
 	}

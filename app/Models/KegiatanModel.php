@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class RegistrationModel extends Model
+class KegiatanModel extends Model
 {
 	protected $DBGroup              = 'default';
-	protected $table                = 'register';
+	protected $table                = 'kegiatan';
 	protected $primaryKey           = 'id';
-	// protected $useAutoIncrement     = true;
+	protected $useAutoIncrement     = true;
 	protected $insertID             = 0;
 	protected $returnType           = 'array';
 	protected $useSoftDeletes       = true;
 	protected $protectFields        = true;
-	protected $allowedFields        = ['nama', 'alamat', 'kontak', 'total_tagihan', 'keterangan', 'status_lunas', 'key', 'qrcode', 'type'];
+	protected $allowedFields        = ["nama_kegiatan", "date_start", "time_start", "date_end", "time_end", "tempat", "keterangan", "status"];
 
 	// Dates
 	protected $useTimestamps        = true;
@@ -24,24 +24,8 @@ class RegistrationModel extends Model
 	protected $deletedField         = 'deleted_at';
 
 	// Validation
-	protected $validationRules      = [
-		'nama' => 'required|min_length[3]',
-		'alamat' => 'required',
-		'kontak' => 'required',
-	];
-	protected $validationMessages   = [
-		'nama' => [
-			'required' => 'Nama harus diisi',
-			'min_length' => 'Minimal 3 karakter',
-		],
-		'alamat' => [
-			'required' => 'Alamat harus diisi'
-		],
-		'kontak' => [
-			'required' => 'Kontak harus di isi dengan no telp., WA atau email'
-		]
-	];
-
+	protected $validationRules      = [];
+	protected $validationMessages   = [];
 	protected $skipValidation       = false;
 	protected $cleanValidationRules = true;
 
@@ -55,9 +39,4 @@ class RegistrationModel extends Model
 	protected $afterFind            = [];
 	protected $beforeDelete         = [];
 	protected $afterDelete          = [];
-
-	public function setAllowedFields(array $allowedFields = [])
-	{
-		$this->allowedFields = $allowedFields;
-	}
 }

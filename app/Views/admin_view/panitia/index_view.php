@@ -13,23 +13,27 @@
   <section id="content">
 
     <div class="container">
-      <h1 class="display-4 text-center mt-2"> Daftar Peserta</h1>
+      <h1 class="display-4 text-center mt-2"> Daftar Panitia</h1>
       <div class="card text-center">
         <div class="card-header">
           <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item">
-              <a class="nav-link" v-on:click="tab_click(0, $event)" v-bind:class="[status_lunas == 0 ? 'active' : '']" href="#">Belum Lunas</a>
+              <a class="nav-link" v-on:click="tab_click(1, $event)" v-bind:class="[type == 1 ? 'active' : '']" href="#">Panitia</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" v-on:click="tab_click(1, $event)" v-bind:class="[status_lunas == 1 ? 'active' : '']" href="#">Lunas</a>
+              <a class="nav-link" v-on:click="tab_click(2, $event)" v-bind:class="[type == 2 ? 'active' : '']" href="#">Tamu</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-danger" v-on:click="tab_click(-1, $event)" v-bind:class="[status_lunas == -1 ? 'active' : '']" href="#"><i class="bi bi-trash-fill"></i> Dihapus </a>
+              <a class="nav-link text-danger" v-on:click="tab_click(0, $event)" v-bind:class="[type == 0 ? 'active' : '']" href="#"><i class="bi bi-trash-fill"></i> Dihapus </a>
             </li>
           </ul>
         </div>
         <div class="card-body">
-          <div class="form-row justify-content-end">
+          <div class="form-row">
+            <div class="col-sm-9 text-left">
+              <a class="btn btn-success btn-sm" href="<?= base_url("/admin/panitia/form"); ?>">Tambah Data</a>
+            </div>
+
             <div class="col-sm-3">
               <div class="input-group input-group-sm mb-3">
                 <input type="text" v-model="search" v-on:keyup.enter="on_search($event)" class="form-control" placeholder="Cari Data" aria-label="Cari Data" aria-describedby="button-addon2">
@@ -43,20 +47,20 @@
             <tr>
               <th width="10%">No.</th>
               <th width="35%">Nama</th>
-              <th width="25%">Alamat</th>
+              <th width="25%">Ket.</th>
               <th width="20%">Kontak</th>
-              <th width="10%">Status</th>
+              <th width="10%">Tipe</th>
             </tr>
             <tr v-for="(item, index) in items" data-toggle="modal" data-target="#detail-modal" v-on:click="view_detail(item.id, $event)">
               <td>{{ count_start + index }}</td>
               <td class="text-left">{{ item.nama }}</td>
-              <td class="text-left">{{ item.alamat }}</td>
+              <td class="text-left">{{ item.keterangan }}</td>
               <td>{{ item.kontak }}</td>
               <td>
 
-                <span v-if="item.status_lunas == 1" class="badge badge-success">Lunas</span>
-                <span v-if="item.status_lunas == 0" class="badge badge-warning">Belum Lunas</span>
-                <span v-if="item.status_lunas == -1" class="badge badge-danger">Dihapus</span>
+                <span v-if="item.type == 1" class="badge badge-warning">Panitia</span>
+                <span v-if="item.type == 2" class="badge badge-danger">Tamu</span>
+                <span v-if="item.type == 3" class="badge badge-primary">Peserta</span>
 
               </td>
             </tr>
@@ -110,20 +114,8 @@
                 <td>{{ data_peserta.created_at }}</td>
               </tr>
               <tr>
-                <th>Total Tagihan</th>
-                <td>{{ data_peserta.total_tagihan }}</td>
-              </tr>
-              <tr>
-                <th>Status</th>
-                <td>
-                  <span v-if="data_peserta.status_lunas == 1" class="badge badge-success">Lunas</span>
-                  <span v-if="data_peserta.status_lunas == 0" class="badge badge-warning">Belum Lunas</span>
-                  <span v-if="data_peserta.status_lunas == -1" class="badge badge-danger">Dihapus</span>
-                  |
-                  <a v-on:click="click_bayar(data_peserta.id, $event)" v-if="data_peserta.status_lunas == 0" class="badge badge-primary"><i class="bi bi-cart-check-fill"></i> Bayar!</a>
-                  <a v-on:click="click_detail_bayar(data_peserta.id_pembayaran, $event)" v-else-if="data_peserta.status_lunas == 1" class="badge badge-info"><i class="bi bi-receipt"></i> Detail!</a>
-                  <a v-on:click="click_edit(data_peserta.id, $event)" v-else class="badge badge-warning"><i class="bi bi-pencil-square"></i> Edit!</a>
-                </td>
+                <th>Keterangan</th>
+                <td>{{ data_peserta.keterangan }}</td>
               </tr>
               <tr>
                 <th>QRCode</th>

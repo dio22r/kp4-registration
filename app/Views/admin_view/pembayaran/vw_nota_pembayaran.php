@@ -42,8 +42,8 @@
           </div>
           <div class="col-sm-8">
             <h4 class="text-center m-0">Gereja Pantekosta di Indonesia</h4>
-            <h4 class="text-center m-0">Komisi Pelayanan Penginjilan Pantekosta Pusat</h4>
-            <h4 class="text-center m-0">PANITIA 1 ABAD GPdI</h4>
+            <h4 class="text-center m-0">PANITIA PERAYAAN SATU ABAD GPdI</h4>
+            <h4 class="text-center m-0">Komisi Pusat Pelayanan Penginjilan Pantekosta (KP4)</h4>
           </div>
           <div class="col-sm-2" style="text-align:center;">
             <img src="<?php echo base_url("/assets/images/maxresdefault.jpg"); ?>" style="height: 90px;" />

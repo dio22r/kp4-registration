@@ -40,6 +40,16 @@ $routes->get('/amplop/(:segment)', "AmplopPublicController::view_show/$1");
 $routes->get('/form-login-kp4', 'UserController::view_login');
 $routes->post('/form-login-kp4', 'UserController::api_check_login');
 
+
+$routes->get("/id-pan/(:segment)", "IdcardController::print_kartu/1/$1");
+$routes->get("/id-t/(:segment)", "IdcardController::print_kartu/2/$1");
+$routes->get("/id-p/(:segment)", "IdcardController::print_kartu/3/$1");
+
+$routes->get("/cert-pan/(:segment)", "CertificateController::print/1/$1");
+$routes->get("/cert-t/(:segment)", "CertificateController::print/2/$1");
+$routes->get("/cert-p/(:segment)", "CertificateController::print/3/$1");
+
+
 // admin peserta view
 $routes->get('/admin', 'AdminController::view_index');
 $routes->get('/admin/view_index', 'AdminController::view_index');
@@ -51,6 +61,20 @@ $routes->get('/admin/peserta/(:num)', 'AdminController::show/$1');
 // $routes->post('/admin/peserta', 'AdminController::create');
 $routes->put('/admin/peserta/(:num)', 'AdminController::update/$1');
 $routes->delete('/admin/peserta/(:num)', 'AdminController::delete/$1');
+
+
+
+// admin peserta view
+$routes->get('/admin/panitia', 'PanitiaController::view_index');
+$routes->get('/admin/panitia/form', 'PanitiaController::view_form');
+$routes->get('/admin/panitia/form/(:num)', 'PanitiaController::view_form/$1');
+
+// admin panitia API
+$routes->get('/admin/panitia/all', 'PanitiaController::index');
+$routes->get('/admin/panitia/(:num)', 'PanitiaController::show/$1');
+$routes->post('/admin/panitia', 'PanitiaController::create');
+$routes->post('/admin/panitia/(:num)', 'PanitiaController::update/$1');
+$routes->delete('/admin/panitia/(:num)', 'PanitiaController::delete/$1');
 
 // admin pembayaran
 $routes->get('/admin/pembayaran', 'PembayaranController::view_index');
@@ -67,10 +91,23 @@ $routes->post('/admin/pembayaran/(:num)', 'PembayaranController::update/$1');
 $routes->delete('/admin/pembayaran', 'PembayaranController::remove');
 
 
+// admin view kegiatan
+$routes->get('/admin/kegiatan', 'KegiatanController::view_index');
+$routes->get('/admin/kegiatan/form', 'KegiatanController::view_form');
+$routes->get('/admin/kegiatan/form/(:num)', 'KegiatanController::view_form/$1');
+
+// admin kegiatan API
+$routes->get('/admin/kegiatan/all', 'KegiatanController::index');
+$routes->get('/admin/kegiatan/(:num)', 'KegiatanController::show/$1');
+$routes->post('/admin/kegiatan', 'KegiatanController::create');
+$routes->post('/admin/kegiatan/(:num)', 'KegiatanController::update/$1');
+$routes->delete('/admin/kegiatan/(:num)', 'KegiatanController::remove/$1');
+
+
 // admin cek tiket
 $routes->get('/admin/cek-tiket', 'CektiketController::view_index');
 $routes->get('/admin/cek-tiket/data', 'CektiketController::index');
-$routes->post('/admin/cek-tiket/(:segment)', 'CektiketController::validation/$1');
+$routes->post('/admin/cek-tiket', 'CektiketController::validation/$1');
 
 
 // admin amplop
@@ -85,7 +122,6 @@ $routes->get('/admin/amplop/all', 'AmplopController::index');
 $routes->get('/admin/amplop/cek/(:segment)', 'AmplopController::api_cek/$1');
 $routes->post('/admin/amplop/keluar', 'AmplopController::api_keluar');
 $routes->post('/admin/amplop/masuk', 'AmplopController::api_masuk');
-
 
 
 // admin 
